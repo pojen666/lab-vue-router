@@ -1,23 +1,53 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import extraRoute from './extra-route.js'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/parent/good',
+    component: () => import('../views/parent/good/GoodParent.vue'),
+    children: [
+      {
+        path: 'one',
+        name: 'GoodParentChildOne',
+        component: () => import('../views/parent/good/GoodParentChildOne.vue')
+      },
+      {
+        path: 'two',
+        name: 'GoodParentChildTwo',
+        component: () => import('../views/parent/good/GoodParentChildTwo.vue')
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/parent/bad',
+    component: () => import('../views/parent/bad/BadParent.vue'),
+    children: [
+      {
+        path: 'one',
+        name: 'BadParentChildOne',
+        component: () => import('../views/parent/bad/BadParentChildOne.vue')
+      },
+      {
+        path: 'two',
+        name: 'BadParentChildTwo',
+        component: () => import('../views/parent/bad/BadParentChildTwo.vue')
+      }
+    ]
+  },
+  {
+    path: '/parent/none',
+    children: [
+      {
+        path: 'child',
+        name: 'NoParentChild',
+        component: () => import('../views/parent/none/NoParentChild.vue')
+      }
+    ]
+  },
+  extraRoute
 ]
 
 const router = new VueRouter({

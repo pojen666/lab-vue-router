@@ -1,10 +1,38 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <br />
+    <div class="d-flex justify-content-center">
+      <div class="card w-75">
+        <div class="card-header">Main Router</div>
+        <div class="card-body">
+          <div id="nav">
+            | <router-link to="/">Empty</router-link> |
+            <br/>
+            | <router-link to="/parent/good"
+              >Parent give children router view</router-link
+            >
+            |
+            <br/>
+            | <router-link to="/parent/bad"
+              >Parent doesn't give children rotuer view</router-link
+            >
+            |
+            <!-- 就算routing mapping得到只要父層沒有對應的component也不會被創建 -->
+            <br/>
+            | <router-link to="/parent/none/child"
+              >try to connect to child who doesn't have parent</router-link
+            >
+            |
+            <br/>
+            | <router-link to="/parent/extra"
+              >try to connect to child import from other file</router-link
+            >
+            |
+          </div>
+          <router-view />
+        </div>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
